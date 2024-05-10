@@ -1,3 +1,5 @@
+*Assignments are in the style of Capture the Flags and requires knowledge of Information Security Exploitations and Encryptions to solve 
+
 # Skills tested and required on this assignments:
 ## Assignment 1
 ### Technical:
